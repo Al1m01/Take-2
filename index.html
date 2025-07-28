@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aldea Anagram Puzzle</title>
+  <style>
+    body {
+      background-color: #1a1a2e;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+    }
+    h1 {
+      color: #00adb5;
+      margin-bottom: 0.5rem;
+    }
+    p {
+      max-width: 700px;
+      text-align: center;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+    }
+    .anagram-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.2rem;
+      max-width: 1200px;
+    }
+    .anagram-card {
+      background-color: #16213e;
+      border: 1px solid #00adb5;
+      border-radius: 10px;
+      padding: 1rem 1.5rem;
+      width: 280px;
+      box-shadow: 0 0 10px #00adb5aa;
+      transition: background-color 0.3s ease;
+    }
+    .scrambled {
+      font-weight: bold;
+      color: #ffd369;
+    }
+    .guess {
+      color: #eeeeee;
+      margin-top: 0.5rem;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      background-color: #0f3460;
+      border: none;
+      border-radius: 5px;
+      color: white;
+    }
+    .correct {
+      color: #00ff88;
+      font-weight: bold;
+    }
+    .solved {
+      background-color: #144f3d !important;
+    }
+  </style>
+</head>
+<body>
+  <h1>Aldea: Anagram Puzzle</h1>
+  <p>Unscramble the mysterious phrases below. They are derived from the lore of Aldea, twisted and hidden in plain sight. Can you decode them?</p>
+  <div class="anagram-container" id="anagramContainer"></div>
+
+  <script>
+    const anagrams = [
+      { scrambled: "Moth Bell Luno", solution: "The Null Bloom" },
+      { scrambled: "Adale ", solution: "Aldea" },
+      { scrambled: "Rising Ultradansa", solution: "Astral Sundering" },
+      { scrambled: "Contingent Tone For", solution: "Forgotten Continent" },
+      { scrambled: "Delusory Tenebacil", solution: "Celestial Boundary" },
+      { scrambled: "Rivals Tale", solution: "Astral Veil" },
+      { scrambled: "Betraces Stalpes", solution: "Spectral Beasts" },
+      { scrambled: "Dissing Monk X", solution: "Six Kingdoms" },
+      { scrambled: "Bachelor Untested An", solution: "The Unstable Concord" },
+      { scrambled: "A Trim Virtue", solution: "Triumvirate" },
+      { scrambled: "Face Her Polyps", solution: "False Prophecy" },
+      { scrambled: "Deer Density Vess", solution: "Severed Destiny" },
+      { scrambled: "A Bet to Far Chief Fa", solution: "The Fabric of Fate" },
+      { scrambled: "LATSREES SIKSE", solution: "Starless Skies" },
+      { scrambled: "Dwarfe Spear Idlle", solution: "Warfare Dispelled" },
+      { scrambled: "rcwe AlrarsleStans", solution: "Starcallers Answer" },
+      { scrambled: "Hil Watoryisd tnT", solution: "History Wand Tilt" },
+      { scrambled: "Actional Fancier", solution: "Fictional Arcane" },
+      { scrambled: "Scoring Not Dardin", solution: "Concord Starting" },
+      { scrambled: "Money End Merge", solution: "Memory End Gene" }
+    ];
+
+    const container = document.getElementById("anagramContainer");
+
+    anagrams.forEach((item, index) => {
+      const card = document.createElement("div");
+      card.className = "anagram-card";
+
+      const scrambled = document.createElement("div");
+      scrambled.className = "scrambled";
+      scrambled.textContent = `#${index + 1}: ${item.scrambled}`;
+
+      const input = document.createElement("input");
+      input.type = "text";
+      input.placeholder = "Your guess...";
+
+      const feedback = document.createElement("div");
+      feedback.className = "guess";
+
+      input.addEventListener("input", () => {
+        if (input.value.toLowerCase().replace(/\s/g, '') === item.solution.toLowerCase().replace(/\s/g, '')) {
+          feedback.textContent = `✔ ${item.solution}`;
+          feedback.classList.add("correct");
+          card.classList.add("solved");
+        } else {
+          feedback.textContent = "";
+          feedback.classList.remove("correct");
+          card.classList.remove("solved");
+        }
+      });
+
+      card.appendChild(scrambled);
+      card.appendChild(input);
+      card.appendChild(feedback);
+      container.appendChild(card);
+    });
+  </script>
+</body>
+</html>
